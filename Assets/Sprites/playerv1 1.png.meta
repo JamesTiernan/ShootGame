@@ -475,7 +475,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones:
-    - name: bone_1
+    - name: Torso
       guid: 8a13386928db67c4d915dc50e64425cc
       position: {x: 64.47037, y: 67.55955, z: 0}
       rotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
@@ -484,7 +484,7 @@ TextureImporter:
       color:
         serializedVersion: 2
         rgba: 4278190335
-    - name: bone_2
+    - name: Chest
       guid: afeda8af80c0e3c4fb547420a89fb7b7
       position: {x: 21.920147, y: -0.000002981342, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -493,7 +493,7 @@ TextureImporter:
       color:
         serializedVersion: 2
         rgba: 4278255615
-    - name: bone_3
+    - name: Neck
       guid: 2c3b2ba43c2535149b13c5151e38111b
       position: {x: 25.018677, y: 2.0207188, z: 1}
       rotation: {x: 0, y: 0, z: 0, w: 1}
@@ -502,7 +502,7 @@ TextureImporter:
       color:
         serializedVersion: 2
         rgba: 4278255360
-    - name: bone_4
+    - name: Head
       guid: 04e4e33b4d5f4ce40a888f05d87c77a1
       position: {x: 27.302633, y: 0.40384868, z: 2}
       rotation: {x: 0, y: 0, z: 9.192399e-11, w: 1}
@@ -511,7 +511,7 @@ TextureImporter:
       color:
         serializedVersion: 2
         rgba: 4294967040
-    - name: bone_5
+    - name: ShoulderR
       guid: 532ff66b20da9be4eb7cab2e987c012c
       position: {x: 15.466925, y: 31.480211, z: 2}
       rotation: {x: 0, y: 0, z: 0.87045324, w: 0.4922512}
@@ -520,7 +520,7 @@ TextureImporter:
       color:
         serializedVersion: 2
         rgba: 4294901760
-    - name: bone_6
+    - name: ArmR
       guid: 19178d97be2361947a4ab59fdd67a476
       position: {x: 24.251976, y: 9.389262, z: 1}
       rotation: {x: 0, y: 0, z: 0.43834493, w: 0.89880687}
@@ -529,7 +529,7 @@ TextureImporter:
       color:
         serializedVersion: 2
         rgba: 4294902015
-    - name: bone_7
+    - name: HandR
       guid: fdf0fd00f15ab1d45aaed9adc7c63102
       position: {x: 32.015877, y: -0.008268662, z: 2}
       rotation: {x: 0, y: 0, z: -0.018171674, w: 0.9998349}
@@ -538,7 +538,7 @@ TextureImporter:
       color:
         serializedVersion: 2
         rgba: 4278223103
-    - name: bone_8
+    - name: ShoulderL
       guid: c791ea5f5d618ce44ac45ad4551cc7d2
       position: {x: 14.013872, y: -28.147959, z: -1}
       rotation: {x: 0, y: 0, z: -0.8979346, w: 0.440129}
@@ -547,7 +547,7 @@ TextureImporter:
       color:
         serializedVersion: 2
         rgba: 4278255488
-    - name: bone_9
+    - name: ArmL
       guid: e9e41f80a3111eb4491bbe891bc12913
       position: {x: 20.790459, y: -8.541604, z: -2}
       rotation: {x: 0, y: 0, z: -0.45215848, w: 0.8919376}
@@ -556,7 +556,7 @@ TextureImporter:
       color:
         serializedVersion: 2
         rgba: 4286643968
-    - name: bone_10
+    - name: HandL
       guid: 4c7b1631df44e82439096f5236a4ff1f
       position: {x: 30.790985, y: 4.019638, z: -1}
       rotation: {x: 0, y: 0, z: 0.010413965, w: 0.99994576}
@@ -565,7 +565,7 @@ TextureImporter:
       color:
         serializedVersion: 2
         rgba: 4294934528
-    - name: bone_11
+    - name: ThighL
       guid: cb56610734c8df24692dea364c523504
       position: {x: -11.4447775, y: -14.774391, z: -1}
       rotation: {x: 0, y: -0, z: -0.9983913, w: 0.0566998}
@@ -574,7 +574,7 @@ TextureImporter:
       color:
         serializedVersion: 2
         rgba: 4294901888
-    - name: bone_12
+    - name: LegL
       guid: a6c1278d125c27b4eb9ba834de0ed8e3
       position: {x: 22.340548, y: 1.0537525, z: -2}
       rotation: {x: 0, y: 0, z: -0.011986535, w: 0.9999282}
@@ -583,7 +583,7 @@ TextureImporter:
       color:
         serializedVersion: 2
         rgba: 4286578943
-    - name: bone_13
+    - name: FootL
       guid: 8f6636fe1a674324b921d07c4175095a
       position: {x: 24.70371, y: -0.30408362, z: 0}
       rotation: {x: 0, y: 0, z: 0.53012365, w: 0.84792036}
@@ -592,7 +592,7 @@ TextureImporter:
       color:
         serializedVersion: 2
         rgba: 4278255615
-    - name: bone_14
+    - name: ThighR
       guid: e0d4bfba5276ca242bef763a19706cf1
       position: {x: -14.721501, y: 16.243193, z: 1}
       rotation: {x: 0, y: -0, z: 0.9998913, w: 0.014746684}
@@ -601,7 +601,7 @@ TextureImporter:
       color:
         serializedVersion: 2
         rgba: 4278255360
-    - name: bone_15
+    - name: LegR
       guid: a994c48250a640148862b856824fbfbc
       position: {x: 21.62144, y: 0.8236972, z: 0}
       rotation: {x: 0, y: 0, z: 0.036629234, w: 0.9993289}
@@ -610,7 +610,7 @@ TextureImporter:
       color:
         serializedVersion: 2
         rgba: 4294967040
-    - name: bone_16
+    - name: FootR
       guid: f14d42ef989d58c4083ca982b3343667
       position: {x: 23.644394, y: 0.48530182, z: 1}
       rotation: {x: 0, y: 0, z: 0.58064926, w: 0.81415385}
