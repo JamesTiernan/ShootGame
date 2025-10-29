@@ -37,20 +37,20 @@ public class playerController : MonoBehaviour
         // Jump input
         if (Input.GetButtonDown("Jump") && isGrounded)
         {
+            rb.freezeRotation = false;
             isGrounded = false;
             isJumping = true;
             rb.linearVelocityY = jumpForce;
             jumpTimeCounter = jumpTime;
             animator.SetBool("isJumping", !isGrounded);
+            animator.SetBool("isLanding", isGrounded);
         }
-
         if (Input.GetButton("Jump") && isJumping)
         {
             if (jumpTimeCounter > 0)
             {
                 rb.linearVelocityY = jumpForce;
                 jumpTimeCounter -= Time.deltaTime;
-                animator.SetBool("isJumping", !isGrounded);
             }
             else if (jumpTimeCounter < 0)
             {
@@ -79,6 +79,7 @@ public class playerController : MonoBehaviour
         
         animator.SetFloat("xVelocity", Math.Abs(rb.linearVelocityX));
         animator.SetFloat("yVelocity", rb.linearVelocityY);
+
         if (isGrounded)
         {
             rb.linearVelocityX += horizontalInput * moveSpeed;
@@ -86,6 +87,7 @@ public class playerController : MonoBehaviour
         }
         else
         {
+            rb.angularVelocity += horizontalInput * -moveSpeed * 0.5f;
             rb.linearVelocityX += horizontalInput * moveSpeed * 0.1f;
         }
 
@@ -100,11 +102,15 @@ public class playerController : MonoBehaviour
             playerSprite.flipX = !isFacingRight;
         }
     }
-    
+
     private void OnTriggerEnter2D(Collider2D coll)
     {
+        rb.angularVelocity = 0;
+        rb.rotation = 0;
+        rb.freezeRotation = true;
         isJumping = false;
         isGrounded = true;
-        animator.SetBool("isJumping",!isGrounded);
+        animator.SetBool("isJumping", !isGrounded);
+        animator.SetBool("isLanding", isGrounded);
     }
 }
