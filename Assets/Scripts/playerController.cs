@@ -42,8 +42,9 @@ public class playerController : MonoBehaviour
             isJumping = true;
             rb.linearVelocityY = jumpForce;
             jumpTimeCounter = jumpTime;
+            animator.ResetTrigger("land");
+            animator.ResetTrigger("roll");
             animator.SetBool("isJumping", !isGrounded);
-            animator.SetBool("isLanding", isGrounded);
         }
         if (Input.GetButton("Jump") && isJumping)
         {
@@ -82,16 +83,24 @@ public class playerController : MonoBehaviour
 
         if (isGrounded)
         {
+            AnimatorClipInfo[] currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
+            // Access the current animation clip's name and length
+            string clipName = currentClipInfo[0].clip.name;
+            if (clipName == "playerRoll" || clipName == "playerLand")
+            {
+                rb.rotation = 0;
+                rb.freezeRotation = true;
+            }
             rb.linearVelocityX += horizontalInput * moveSpeed;
             rb.linearVelocityX *= friction;
         }
         else
         {
-            rb.angularVelocity += horizontalInput * -moveSpeed * 0.5f;
+            rb.angularVelocity += rb.linearVelocityX * -0.2f;
             rb.linearVelocityX += horizontalInput * moveSpeed * 0.1f;
         }
 
-        flipSprite();
+        
     }
 
     void flipSprite()
@@ -105,12 +114,31 @@ public class playerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D coll)
     {
-        rb.angularVelocity = 0;
-        rb.rotation = 0;
-        rb.freezeRotation = true;
-        isJumping = false;
-        isGrounded = true;
-        animator.SetBool("isJumping", !isGrounded);
-        animator.SetBool("isLanding", isGrounded);
+        if (rb.linearVelocityY <= 0)
+        {
+            rb.angularVelocity = 0;
+            isJumping = false;
+            isGrounded = true;
+            Debug.Log(Math.Abs(rb.rotation));
+
+            AnimatorClipInfo[] currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
+            // Access the current animation clip's name and length
+            string clipName = currentClipInfo[0].clip.name;
+            //float clipLength = currentClipInfo[0].clip.length;
+            if (clipName != "playerRoll" && clipName != "playerLand")
+            {
+                if (Math.Abs(rb.rotation) > 30)
+                {
+                    animator.SetTrigger("roll");
+                    animator.ResetTrigger("land");
+                }
+                else
+                {
+                    animator.SetTrigger("land");
+                }
+                animator.SetBool("isJumping", !isGrounded);
+            }
+        }
+
     }
 }
