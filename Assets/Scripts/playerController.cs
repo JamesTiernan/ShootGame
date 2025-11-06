@@ -1,4 +1,5 @@
 using System;
+using NUnit.Framework;
 using Unity.Hierarchy;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -15,18 +16,19 @@ public class playerController : MonoBehaviour
     [SerializeField] private GameObject arm;
     [SerializeField] private GameObject shootArm;
     [SerializeField] private GameObject shootArmTarget;
+    [SerializeField] private GameObject bulletPrefab;
+    [SerializeField] private Transform firePoint;
     
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer playerSprite;
     public static bool isGrounded;
     public static bool isJumping;
+    public static bool isSliding;
     public static bool isGrabbing;
     private float jumpTimeCounter;
     private float horizontalInput;
     public static bool isFacingRight = true;
-
-
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,8 +36,6 @@ public class playerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerSprite = GetComponent<SpriteRenderer>();
-
-
     }
 
     // Update is called once per frame
@@ -45,22 +45,25 @@ public class playerController : MonoBehaviour
         {
             GetComponent<playerLedgeGrab>().changePos();
         }
-        if (Input.GetMouseButtonDown(1))
-        {
-            shootArmTarget.transform.position = new Vector3(0, 0, 0);
-        }
+
         if (Input.GetMouseButton(1))
         {
             arm.transform.localScale = new Vector3(0, 1, 1);
             shootArm.transform.localScale = new Vector3(1, 1, 1);
 
-            shootArmTarget.transform.position += new Vector3(Input.GetAxisRaw("Mouse X")*3f, Input.GetAxisRaw("Mouse Y")*3f, 0);
+            aimWeapon();
+
+            if (Input.GetMouseButtonDown(0))
+            {
+                Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+            }
         }
         else
         {
             arm.transform.localScale = new Vector3(1, 1, 1);
             shootArm.transform.localScale = new Vector3(0, 1, 1);
         }
+
         // Check if grabbing ledge, only run movement code if not grabbing.
         if (isGrabbing)
         {
@@ -82,9 +85,52 @@ public class playerController : MonoBehaviour
         }
         else
         {
-            horizontalInput = Input.GetAxisRaw("Horizontal");
-            bool checkFront = Physics2D.OverlapBox(new Vector2(transform.position.x + 0.5f, transform.position.y), new Vector2(0.3f, .5f), 0f, groundMask);
+            if(Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                isSliding = !isSliding;
+                if (isSliding)
+                {
+                    rb.rotation = 0;
+                    rb.freezeRotation = true;
+                }
+            }
+                
+            if (!isSliding)
+            {
+                horizontalInput = Input.GetAxisRaw("Horizontal");
+            }
+            else
+            {
+                if (Input.GetAxisRaw("Horizontal") != horizontalInput && Input.GetAxisRaw("Horizontal") != 0)
+                {
+                    isSliding = false;
+                }
+                if (isFacingRight)
+                {
+                    horizontalInput = 1;
+                }
+                else
+                {
+                    horizontalInput = -1;
+                }
+            }
 
+            bool checkFront = Physics2D.OverlapBox(new Vector2(transform.position.x + (0.3f * transform.localScale.x), transform.position.y + 0.5f), new Vector2(0.4f, 0.8f), 0f, groundMask);
+            if (checkFront)
+            {
+                isSliding = false;
+                if (isFacingRight && horizontalInput > 0)
+                {
+                    horizontalInput = 0;
+                }
+                if (!isFacingRight && horizontalInput < 0)
+                {
+                    horizontalInput = 0;
+                }
+            }
+
+            animator.SetBool("slide", isSliding);
+            
             flipSprite();
 
             // Jump input
@@ -92,6 +138,7 @@ public class playerController : MonoBehaviour
             {
                 rb.freezeRotation = false;
                 isGrounded = false;
+                isSliding = false;
                 isJumping = true;
                 rb.linearVelocityY = jumpForce;
                 jumpTimeCounter = jumpTime;
@@ -123,24 +170,13 @@ public class playerController : MonoBehaviour
         // Movement code does not run if grabbing ledge.
         if (!isGrabbing)
         {
-            animator.SetFloat("xVelocity", Math.Abs(rb.linearVelocityX));
-            animator.SetFloat("yVelocity", rb.linearVelocityY);
-            checkFloor();
-
-            if (isGrounded)
+            if (isSliding)
             {
-                AnimatorClipInfo[] currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
-                string clipName = currentClipInfo[0].clip.name;
-
-                if (clipName == "playerRoll" || clipName == "playerLand")
-                {
-                    rb.rotation = 0;
-                    rb.freezeRotation = true;
-                }
                 rb.linearVelocityX += horizontalInput * moveSpeed;
+
                 if (horizontalInput == 0)
                 {
-                    rb.linearVelocityX *= friction;
+                    isSliding = false;
                 }
 
                 if (Math.Abs(rb.linearVelocityX) > maxMoveSpeed)
@@ -157,11 +193,55 @@ public class playerController : MonoBehaviour
             }
             else
             {
-                rb.angularVelocity += rb.linearVelocityX * -0.2f;
-                rb.linearVelocityX += horizontalInput * moveSpeed * 0.05f;
+                animator.SetFloat("xVelocity", Math.Abs(rb.linearVelocityX));
+                animator.SetFloat("yVelocity", rb.linearVelocityY);
+                checkFloor();
+
+                if (isGrounded)
+                {
+                    AnimatorClipInfo[] currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
+                    string clipName = currentClipInfo[0].clip.name;
+
+                    if (clipName == "playerRoll" || clipName == "playerLand")
+                    {
+                        rb.rotation = 0;
+                        rb.freezeRotation = true;
+                    }
+
+                    rb.linearVelocityX += horizontalInput * moveSpeed;
+
+                    if (horizontalInput == 0)
+                    {
+                        rb.linearVelocityX *= friction;
+                    }
+
+                    if (Math.Abs(rb.linearVelocityX) > maxMoveSpeed)
+                    {
+                        if (rb.linearVelocityX > 0)
+                        {
+                            rb.linearVelocityX = maxMoveSpeed;
+                        }
+                        else
+                        {
+                            rb.linearVelocityX = -maxMoveSpeed;
+                        }
+                    }
+                }
+                else
+                {
+                    rb.angularVelocity += rb.linearVelocityX * -0.2f;
+                    rb.linearVelocityX += horizontalInput * moveSpeed * 0.05f;
+                }
             }
-            
         }
+    }
+    
+    private void aimWeapon()
+    {
+
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+        shootArmTarget.transform.position = mousePosition;
     }
 
     void flipSprite()
@@ -201,9 +281,11 @@ public class playerController : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - 0.7f,0), 0.3f);
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - 0.7f, 0), 0.3f);
         Gizmos.color = Color.green;
-        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y + 1.1f,0), 0.4f);
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y + 1.1f, 0), 0.4f);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(new Vector3(transform.position.x +(0.3f * transform.localScale.x), transform.position.y + 0.5f,0f), new Vector3(0.4f, 0.8f,0f));
     }
 
     private void hitFloor(bool foot)
@@ -221,6 +303,11 @@ public class playerController : MonoBehaviour
                 string clipName = currentClipInfo[0].clip.name;
                 if (clipName != "playerRoll" && clipName != "playerLand")
                 {
+                    if (isSliding)
+                    {
+                        animator.SetTrigger("roll");
+                        animator.ResetTrigger("land");
+                    }
                     if (Math.Abs(rb.rotation) > 45)
                     {
                         animator.SetTrigger("roll");
