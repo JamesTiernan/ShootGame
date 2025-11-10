@@ -1,6 +1,7 @@
 using System;
 using NUnit.Framework;
 using Unity.Hierarchy;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -18,6 +19,7 @@ public class playerController : MonoBehaviour
     [SerializeField] private GameObject shootArmTarget;
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
+    [SerializeField] private Transform armAttachPoint;
     
     private Rigidbody2D rb;
     private Animator animator;
@@ -48,6 +50,7 @@ public class playerController : MonoBehaviour
 
         if (Input.GetMouseButton(1))
         {
+            shootArm.transform.position = armAttachPoint.transform.position;
             arm.transform.localScale = new Vector3(0, 1, 1);
             shootArm.transform.localScale = new Vector3(1, 1, 1);
 
@@ -55,7 +58,14 @@ public class playerController : MonoBehaviour
 
             if (Input.GetMouseButtonDown(0))
             {
-                Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+                if (!isFacingRight)
+                {
+                    Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * Quaternion.Euler(new Vector3(0,180,0)));
+                }
+                else
+                {
+                    Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+                }                
             }
         }
         else
@@ -262,7 +272,7 @@ public class playerController : MonoBehaviour
     }
     private void checkFloor()
     {
-        bool feetCheck = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y - 0.7f), 0.3f, groundMask);
+        bool feetCheck = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y - 0.7f), 0.4f, groundMask);
         bool headCheck = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y + 1.1f), 0.4f, groundMask);
         if (feetCheck)
         {
@@ -281,7 +291,7 @@ public class playerController : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - 0.7f, 0), 0.3f);
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - 0.7f, 0), 0.4f);
         Gizmos.color = Color.green;
         Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y + 1.1f, 0), 0.4f);
         Gizmos.color = Color.yellow;
