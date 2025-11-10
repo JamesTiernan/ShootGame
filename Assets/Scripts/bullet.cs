@@ -1,9 +1,17 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class bullet : MonoBehaviour
 {
     public float speed = 10f;
+    public int damage = 1;
     private float lifetime = 0f;
+    void Start()
+    {
+        Rigidbody2D rb = GetComponent<Rigidbody2D>();
+        rb.collisionDetectionMode = CollisionDetectionMode2D.Continuous;
+        rb.linearVelocity = transform.right * speed;
+    }
     void Update()
     {
         lifetime += Time.deltaTime;
@@ -11,11 +19,18 @@ public class bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        transform.Translate(Vector2.right * speed * Time.deltaTime);
+        //transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnTriggerEnter2D(Collider2D other)
     {
-        Destroy(gameObject);
+        if (other.CompareTag("Enemy") || other.CompareTag("Ground"))
+        {
+            if (other.CompareTag("Enemy"))
+            {
+                
+            }
+            Destroy(gameObject);
+        }
     }
 }

@@ -27,6 +27,7 @@ public class playerController : MonoBehaviour
     public static bool isGrounded;
     public static bool isJumping;
     public static bool isSliding;
+    public static bool isWallSliding;
     public static bool isGrabbing;
     private float jumpTimeCounter;
     private float horizontalInput;
@@ -129,6 +130,7 @@ public class playerController : MonoBehaviour
             if (checkFront)
             {
                 isSliding = false;
+
                 if (isFacingRight && horizontalInput > 0)
                 {
                     horizontalInput = 0;
@@ -205,6 +207,7 @@ public class playerController : MonoBehaviour
             {
                 animator.SetFloat("xVelocity", Math.Abs(rb.linearVelocityX));
                 animator.SetFloat("yVelocity", rb.linearVelocityY);
+
                 checkFloor();
 
                 if (isGrounded)
@@ -256,18 +259,24 @@ public class playerController : MonoBehaviour
 
     void flipSprite()
     {
-        if (isFacingRight && horizontalInput < 0f || !isFacingRight && horizontalInput > 0f)
+        if (Input.GetMouseButton(1))
+        {
+            if ((isFacingRight && shootArmTarget.transform.position.x < transform.position.x || !isFacingRight && shootArmTarget.transform.position.x > transform.position.x) && !isSliding)
+            {
+                isFacingRight = !isFacingRight;
+            }
+        }
+        else if (isFacingRight && horizontalInput < 0f || !isFacingRight && horizontalInput > 0f)
         {
             isFacingRight = !isFacingRight;
-            if (isFacingRight)
-            {
-                transform.localScale = new Vector3(2f, 2f, 2f);
-            }
-            else
-            {
-                transform.localScale = new Vector3(-2f,2f,2f);
-            }
-            
+        }
+        if (isFacingRight)
+        {
+            transform.localScale = new Vector3(2f, 2f, 2f);
+        }
+        else
+        {
+            transform.localScale = new Vector3(-2f,2f,2f);
         }
     }
     private void checkFloor()
@@ -290,9 +299,9 @@ public class playerController : MonoBehaviour
     }
     void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - 0.7f, 0), 0.4f);
         Gizmos.color = Color.green;
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - 0.7f, 0), 0.4f);
+        Gizmos.color = Color.red;
         Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y + 1.1f, 0), 0.4f);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(new Vector3(transform.position.x +(0.3f * transform.localScale.x), transform.position.y + 0.5f,0f), new Vector3(0.4f, 0.8f,0f));
@@ -307,7 +316,6 @@ public class playerController : MonoBehaviour
                 rb.angularVelocity = 0;
                 isJumping = false;
                 isGrounded = true;
-                Debug.Log(Math.Abs(rb.rotation));
 
                 AnimatorClipInfo[] currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
                 string clipName = currentClipInfo[0].clip.name;
