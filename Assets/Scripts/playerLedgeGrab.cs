@@ -19,21 +19,24 @@ public class playerLedgeGrab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        greenBox = Physics2D.OverlapBox(new Vector2(transform.position.x + (greenXOffset * transform.localScale.x), transform.position.y + greenYOffset), new Vector2(greenXSize, greenYSize), 0f, groundMask);
-        redBox = Physics2D.OverlapBox(new Vector2(transform.position.x + (redXOffset * transform.localScale.x), transform.position.y + redYOffset), new Vector2(redXSize, redYSize), 0f, groundMask);
-
-        if (greenBox && !redBox && !playerController.isGrabbing && !playerController.isGrounded)
+        if (!playerController.isCrouching)
         {
-            playerController.isJumping = false;
-            playerController.isGrabbing = true;
-        }
+            greenBox = Physics2D.OverlapBox(new Vector2(transform.position.x + (greenXOffset * transform.localScale.x), transform.position.y + greenYOffset), new Vector2(greenXSize, greenYSize), 0f, groundMask);
+            redBox = Physics2D.OverlapBox(new Vector2(transform.position.x + (redXOffset * transform.localScale.x), transform.position.y + redYOffset), new Vector2(redXSize, redYSize), 0f, groundMask);
 
-        if (playerController.isGrabbing)
-        {
-            rb.rotation = 0;
-            rb.freezeRotation = true;
-            rb.linearVelocity = new Vector2(0f, 0f);
-            rb.gravityScale = 0f;
+            if (greenBox && !redBox && !playerController.isGrabbing && !playerController.isGrounded)
+            {
+                playerController.isJumping = false;
+                playerController.isGrabbing = true;
+            }
+
+            if (playerController.isGrabbing)
+            {
+                rb.rotation = 0;
+                rb.freezeRotation = true;
+                rb.linearVelocity = new Vector2(0f, 0f);
+                rb.gravityScale = 0f;
+            }
         }
     }
     

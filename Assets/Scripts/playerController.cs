@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.CompilerServices;
 using NUnit.Framework;
 using Unity.Hierarchy;
 using Unity.Mathematics;
@@ -8,11 +9,13 @@ using UnityEngine;
 public class playerController : MonoBehaviour
 {
     [Header("Movement Settings")]
-    [SerializeField] private float moveSpeed = 7f;
-    [SerializeField] private float jumpForce = 3f;
-    [SerializeField] private float jumpTime = 12f;
+    [SerializeField] private float acceleration = 2f;
+    [SerializeField] private float crouchSpeed = 1f;
+    [SerializeField] private float slideSpeed = 4f;
+    [SerializeField] private float jumpForce = 6f;
+    [SerializeField] private float jumpTime = 0.4f;
     [SerializeField] private float friction = 0.8f;
-    [SerializeField] private float maxMoveSpeed = 12f;
+    [SerializeField] private float maxMoveSpeed = 8f;
     [SerializeField] private LayerMask groundMask;
     [SerializeField] private GameObject arm;
     [SerializeField] private GameObject shootArm;
@@ -20,15 +23,21 @@ public class playerController : MonoBehaviour
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private Transform firePoint;
     [SerializeField] private Transform armAttachPoint;
-    
+    [SerializeField] private GameObject mainCollider;
+    [SerializeField] private GameObject slideCollider;
+    private BoxCollider2D mainColl;
+    private BoxCollider2D slideColl;
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer playerSprite;
+    private bool headContact;
+    private bool feetContact;
     public static bool isGrounded;
     public static bool isJumping;
     public static bool isSliding;
     public static bool isWallSliding;
     public static bool isGrabbing;
+    public static bool isCrouching;
     private float jumpTimeCounter;
     private float horizontalInput;
     public static bool isFacingRight = true;
@@ -36,6 +45,8 @@ public class playerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        mainColl = mainCollider.GetComponent<BoxCollider2D>();
+        slideColl = slideCollider.GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerSprite = GetComponent<SpriteRenderer>();
@@ -44,6 +55,18 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        checkFloor();
+        if (isSliding || isCrouching)
+        {
+            mainColl.enabled = false;
+            slideColl.enabled = true;
+        }
+        else
+        {
+            mainColl.enabled = true;
+            slideColl.enabled = false;
+        } 
+       
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("playerGrabLedge") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
         {
             GetComponent<playerLedgeGrab>().changePos();
@@ -61,12 +84,12 @@ public class playerController : MonoBehaviour
             {
                 if (!isFacingRight)
                 {
-                    Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * Quaternion.Euler(new Vector3(0,180,0)));
+                    Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * Quaternion.Euler(new Vector3(0, 180, 0)));
                 }
                 else
                 {
                     Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-                }                
+                }
             }
         }
         else
@@ -96,16 +119,29 @@ public class playerController : MonoBehaviour
         }
         else
         {
-            if(Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                isSliding = !isSliding;
-                if (isSliding)
+                if (headContact && isSliding)
                 {
-                    rb.rotation = 0;
-                    rb.freezeRotation = true;
+                    isCrouching = true;
+                    isSliding = !isSliding;
                 }
-            }
+                else
+                {
+                    if (!isSliding)
+                    {
+                        isCrouching = false;
+                    }
+                    isSliding = !isSliding;
+                    if (isSliding)
+                    {
+                        rb.rotation = 0;
+                        rb.freezeRotation = true;
+                    }
+                }
                 
+            }
+
             if (!isSliding)
             {
                 horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -125,10 +161,22 @@ public class playerController : MonoBehaviour
                     horizontalInput = -1;
                 }
             }
+            bool checkFront;
+            if (isSliding || isCrouching)
+            {
+                checkFront = Physics2D.OverlapBox(new Vector2(transform.position.x + (0.3f * transform.localScale.x), transform.position.y - 0.2f), new Vector2(0.2f, .5f), 0f, groundMask);
+            }
+            else
+            {
+                checkFront = Physics2D.OverlapBox(new Vector2(transform.position.x + (0.3f * transform.localScale.x), transform.position.y + 0.2f), new Vector2(0.2f, 1f), 0f, groundMask);
+            }
 
-            bool checkFront = Physics2D.OverlapBox(new Vector2(transform.position.x + (0.3f * transform.localScale.x), transform.position.y + 0.5f), new Vector2(0.4f, 0.8f), 0f, groundMask);
             if (checkFront)
             {
+                if (headContact)
+                {
+                    isCrouching = true;
+                }
                 isSliding = false;
 
                 if (isFacingRight && horizontalInput > 0)
@@ -141,15 +189,27 @@ public class playerController : MonoBehaviour
                 }
             }
 
-            animator.SetBool("slide", isSliding);
-            
-            flipSprite();
+            if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
+            {
+                if (!headContact || !isCrouching)
+                {
+                    isSliding = false;
+                    isCrouching = !isCrouching;
+                }
+            }
 
+            animator.SetBool("slide", isSliding);
+            animator.SetBool("Crouching", isCrouching);
+
+
+            flipSprite();
+            
             // Jump input
-            if (Input.GetButtonDown("Jump") && isGrounded)
+            if (Input.GetButtonDown("Jump") && isGrounded && !Physics2D.OverlapBox(new Vector2(transform.position.x , transform.position.y + 0.4f), new Vector2(0.2f, 1.9f), 0f, groundMask))
             {
                 rb.freezeRotation = false;
                 isGrounded = false;
+                isCrouching = false;
                 isSliding = false;
                 isJumping = true;
                 rb.linearVelocityY = jumpForce;
@@ -184,22 +244,22 @@ public class playerController : MonoBehaviour
         {
             if (isSliding)
             {
-                rb.linearVelocityX += horizontalInput * moveSpeed;
+                rb.linearVelocityX += horizontalInput * acceleration;
 
                 if (horizontalInput == 0)
                 {
                     isSliding = false;
                 }
 
-                if (Math.Abs(rb.linearVelocityX) > maxMoveSpeed)
+                if (Math.Abs(rb.linearVelocityX) > slideSpeed)
                 {
                     if (rb.linearVelocityX > 0)
                     {
-                        rb.linearVelocityX = maxMoveSpeed;
+                        rb.linearVelocityX = slideSpeed;
                     }
                     else
                     {
-                        rb.linearVelocityX = -maxMoveSpeed;
+                        rb.linearVelocityX = -slideSpeed;
                     }
                 }
             }
@@ -221,42 +281,58 @@ public class playerController : MonoBehaviour
                         rb.freezeRotation = true;
                     }
 
-                    rb.linearVelocityX += horizontalInput * moveSpeed;
+                    rb.linearVelocityX += horizontalInput * acceleration;
+
 
                     if (horizontalInput == 0)
                     {
                         rb.linearVelocityX *= friction;
                     }
 
-                    if (Math.Abs(rb.linearVelocityX) > maxMoveSpeed)
+                    if (isCrouching)
                     {
-                        if (rb.linearVelocityX > 0)
+                        if (Math.Abs(rb.linearVelocityX) > crouchSpeed)
                         {
-                            rb.linearVelocityX = maxMoveSpeed;
-                        }
-                        else
-                        {
-                            rb.linearVelocityX = -maxMoveSpeed;
+                            if (rb.linearVelocityX > 0)
+                            {
+                                rb.linearVelocityX = crouchSpeed;
+                            }
+                            else
+                            {
+                                rb.linearVelocityX = -crouchSpeed;
+                            }
                         }
                     }
+                    else
+                    {
+                       if (Math.Abs(rb.linearVelocityX) > maxMoveSpeed)
+                        {
+                            if (rb.linearVelocityX > 0)
+                            {
+                                rb.linearVelocityX = maxMoveSpeed;
+                            }
+                            else
+                            {
+                                rb.linearVelocityX = -maxMoveSpeed;
+                            }
+                        } 
+                    }
+                    
                 }
                 else
                 {
                     rb.angularVelocity += rb.linearVelocityX * -0.2f;
-                    rb.linearVelocityX += horizontalInput * moveSpeed * 0.05f;
+                    rb.linearVelocityX += horizontalInput * acceleration * 0.05f;
                 }
             }
         }
     }
-    
     private void aimWeapon()
     {
-
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         shootArmTarget.transform.position = mousePosition;
     }
-
     void flipSprite()
     {
         if (Input.GetMouseButton(1))
@@ -276,37 +352,44 @@ public class playerController : MonoBehaviour
         }
         else
         {
-            transform.localScale = new Vector3(-2f,2f,2f);
+            transform.localScale = new Vector3(-2f, 2f, 2f);
         }
     }
     private void checkFloor()
     {
-        bool feetCheck = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y - 0.7f), 0.4f, groundMask);
-        bool headCheck = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y + 1.1f), 0.4f, groundMask);
-        if (feetCheck)
+        feetContact = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y - 0.7f), 0.3f, groundMask);
+        headContact = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y + 1.1f), 0.3f, groundMask);
+        if (feetContact)
         {
             hitFloor(true);
         }
-        if (headCheck)
+        if (headContact)
         {
             hitFloor(false);
         }
-        if (!feetCheck && !headCheck)
+        if (!feetContact && !headContact)
         {
             isGrounded = false;
         }
-
     }
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
-        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - 0.7f, 0), 0.4f);
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - 0.7f, 0), 0.3f);
         Gizmos.color = Color.red;
-        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y + 1.1f, 0), 0.4f);
+        Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y + 1.1f, 0), 0.3f);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(new Vector3(transform.position.x +(0.3f * transform.localScale.x), transform.position.y + 0.5f,0f), new Vector3(0.4f, 0.8f,0f));
+        if (isSliding)
+        {
+            Gizmos.DrawWireCube(new Vector3(transform.position.x + (0.3f * transform.localScale.x), transform.position.y - 0.2f, 0f), new Vector3(0.2f, 0.5f, 0f));
+        }
+        else
+        {
+            Gizmos.DrawWireCube(new Vector3(transform.position.x + (0.3f * transform.localScale.x), transform.position.y + 0.2f, 0f), new Vector3(0.2f, 1f, 0f));
+        }
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y + 0.4f, 0f), new Vector3(0.2f, 1.9f, 0f));
     }
-
     private void hitFloor(bool foot)
     {
         if (rb.linearVelocityY <= 0)
@@ -316,7 +399,7 @@ public class playerController : MonoBehaviour
                 rb.angularVelocity = 0;
                 isJumping = false;
                 isGrounded = true;
-
+                
                 AnimatorClipInfo[] currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
                 string clipName = currentClipInfo[0].clip.name;
                 if (clipName != "playerRoll" && clipName != "playerLand")
@@ -348,6 +431,6 @@ public class playerController : MonoBehaviour
                 }
             }
         }
-
     }
+
 }

@@ -19,18 +19,16 @@ public class bullet : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        //transform.Translate(Vector2.right * speed * Time.deltaTime);
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.CompareTag("Enemy") || other.CompareTag("Ground"))
+        healthController enemy = other.collider.GetComponent<healthController>();
+        if (enemy != null)
         {
-            if (other.CompareTag("Enemy"))
-            {
-                
-            }
-            Destroy(gameObject);
+            enemy.damage(damage);
         }
+        Destroy(gameObject);
+        
     }
 }
