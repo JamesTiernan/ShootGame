@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 099afc3fa3d6ed546a982c0237c3593f
+guid: 6489a32e8bb50794b815cf7e1f9cdbdc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9083969447635318612
-    second: moon_0
+      213: 1846407983339763657
+    second: groundmiddle_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -40,9 +40,9 @@ TextureImporter:
     filterMode: 0
     aniso: 1
     mipBias: 0
-    wrapU: 1
-    wrapV: 1
-    wrapW: 1
+    wrapU: 0
+    wrapV: 0
+    wrapW: 0
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: moon_0
+      name: groundmiddle_0
       rect:
         serializedVersion: 2
-        x: 30
-        y: 30
-        width: 66
-        height: 66
+        x: 0
+        y: 0
+        width: 64
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 457fdcc651eb01e70800000000000000
-      internalID: 9083969447635318612
+      spriteID: 9c779653742cf9910800000000000000
+      internalID: 1846407983339763657
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      moon_0: 9083969447635318612
+      groundmiddle_0: 1846407983339763657
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

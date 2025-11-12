@@ -5,6 +5,7 @@ public class randomSFX : MonoBehaviour
 {
     public AudioSource randomSound;
     [SerializeField] public AudioClip[] sfxList;
+    private int lastFrame = -1;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -17,9 +18,12 @@ public class randomSFX : MonoBehaviour
 
     }
     
-    public void playRand()
+    public void PlayRand()
     {
-        randomSound.clip = sfxList[UnityEngine.Random.Range(0, sfxList.Length)];
-        randomSound.Play();
+        if (Time.frameCount == lastFrame) return;
+        lastFrame = Time.frameCount;
+        int rand = UnityEngine.Random.Range(0, sfxList.Length);
+        //randomSound.clip = sfxList[rand];
+        randomSound.PlayOneShot(sfxList[rand]);
     }
 }

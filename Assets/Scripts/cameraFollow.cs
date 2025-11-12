@@ -10,10 +10,11 @@ public class cameraFollow : MonoBehaviour
     [SerializeField] Vector2 offset;
     [SerializeField] float smoothness = 0.01f;
     Vector2 newPos;
+    playerController playerScript;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        playerScript = target.GetComponent<playerController>();
     }
 
     // Update is called once per frame

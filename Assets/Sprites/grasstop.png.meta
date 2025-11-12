@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 099afc3fa3d6ed546a982c0237c3593f
+guid: 5bac4da5f43e3e9499b480bdce2b981e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9083969447635318612
-    second: moon_0
+      213: -4202216773524841237
+    second: grasstop_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,12 +46,12 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 64
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: moon_0
+      name: grasstop_0
       rect:
         serializedVersion: 2
-        x: 30
-        y: 30
-        width: 66
-        height: 66
+        x: 0
+        y: 0
+        width: 64
+        height: 70
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 457fdcc651eb01e70800000000000000
-      internalID: 9083969447635318612
+      spriteID: bec1dd8db1abea5c0800000000000000
+      internalID: -4202216773524841237
       vertices: []
       indices: 
       edges: []
@@ -125,7 +125,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      moon_0: 9083969447635318612
+      grasstop_0: -4202216773524841237
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

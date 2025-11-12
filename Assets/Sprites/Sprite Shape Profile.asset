@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af7181f404f1447c0a7a17b3070b952b, type: 3}
+  m_Name: Sprite Shape Profile
+  m_EditorClassIdentifier: 
+  m_Angles:
+  - m_Start: -45
+    m_End: 45
+    m_Order: 0
+    m_Sprites:
+    - {fileID: 1421618190, guid: bb9530d2571c5944784a99bbef5e5bef, type: 3}
+  - m_Start: 45
+    m_End: 135
+    m_Order: 0
+    m_Sprites:
+    - {fileID: -423938360, guid: bb9530d2571c5944784a99bbef5e5bef, type: 3}
+  - m_Start: -135
+    m_End: -45
+    m_Order: 0
+    m_Sprites:
+    - {fileID: -423938360, guid: bb9530d2571c5944784a99bbef5e5bef, type: 3}
+  - m_Start: -225
+    m_End: -135
+    m_Order: 0
+    m_Sprites:
+    - {fileID: 1467013910, guid: bb9530d2571c5944784a99bbef5e5bef, type: 3}
+  m_FillTexture: {fileID: 2800000, guid: 8c50d383ba7cbd24a85196e1261585a7, type: 3}
+  m_CornerSprites:
+  - m_CornerType: 0
+    m_Sprites:
+    - {fileID: 7821186622124396910, guid: a6e9ee22222b4d04e83a587050f0a127, type: 3}
+  - m_CornerType: 1
+    m_Sprites:
+    - {fileID: -1693054688, guid: a6e9ee22222b4d04e83a587050f0a127, type: 3}
+  - m_CornerType: 2
+    m_Sprites:
+    - {fileID: -20381833, guid: a6e9ee22222b4d04e83a587050f0a127, type: 3}
+  - m_CornerType: 3
+    m_Sprites:
+    - {fileID: -928086670, guid: a6e9ee22222b4d04e83a587050f0a127, type: 3}
+  - m_CornerType: 4
+    m_Sprites:
+    - {fileID: -273218597, guid: a6e9ee22222b4d04e83a587050f0a127, type: 3}
+  - m_CornerType: 5
+    m_Sprites:
+    - {fileID: 1035268872, guid: a6e9ee22222b4d04e83a587050f0a127, type: 3}
+  - m_CornerType: 6
+    m_Sprites:
+    - {fileID: 1881668639, guid: a6e9ee22222b4d04e83a587050f0a127, type: 3}
+  - m_CornerType: 7
+    m_Sprites:
+    - {fileID: -1349417992, guid: a6e9ee22222b4d04e83a587050f0a127, type: 3}
+  m_FillOffset: -0.249
+  m_UseSpriteBorders: 1
