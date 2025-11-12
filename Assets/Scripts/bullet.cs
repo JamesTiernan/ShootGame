@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class bullet : MonoBehaviour
 {
+    [SerializeField] GameObject impactFX;
     public float speed = 10f;
     public int damage = 1;
     private float lifetime = 0f;
@@ -28,7 +29,7 @@ public class bullet : MonoBehaviour
         {
             enemy.damage(damage);
         }
+        else if (impactFX != null) { Instantiate(impactFX); }
         Destroy(gameObject);
-        
     }
 }
