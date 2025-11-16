@@ -29,7 +29,7 @@ public class bullet : MonoBehaviour
         {
             enemy.damage(damage);
         }
-        else if (impactFX != null) { Instantiate(impactFX); }
+        else if (impactFX != null) { Instantiate(impactFX,transform.position,transform.rotation); }
         Destroy(gameObject);
     }
 }
