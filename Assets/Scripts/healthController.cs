@@ -15,7 +15,10 @@ public class healthController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (health > startHealth)
+        {
+            health = startHealth;
+        }
     }
     
     public void damage(int amount)

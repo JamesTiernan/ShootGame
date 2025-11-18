@@ -61,11 +61,11 @@ public class playerLedgeGrab : MonoBehaviour
         // Apply velocity
         if (playerController.isFacingRight)
         {
-            rb.linearVelocityX += 13;
+            rb.linearVelocityX += 8;
         }
         else
         {
-            rb.linearVelocityX += -13;
+            rb.linearVelocityX += -8;
         }
         rb.linearVelocityY = 5;
         animator.SetTrigger("finishGrabLedge");

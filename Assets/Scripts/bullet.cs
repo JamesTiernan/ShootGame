@@ -25,6 +25,10 @@ public class bullet : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D other)
     {
+        impactMaterial impact = other.collider.GetComponent<impactMaterial>();
+        if (impact == null){impact = other.collider.GetComponentInParent<impactMaterial>();}
+        if (impact != null){if(impact.impactFX != null) {impactFX = impact.impactFX;}}
+
         healthController enemy = other.collider.GetComponent<healthController>();
         if (enemy != null)
         {

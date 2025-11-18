@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1452414053948055540}
   - component: {fileID: 3141163127266438213}
   - component: {fileID: 7651156670270970042}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: playerRagdoll_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -213,7 +213,7 @@ GameObject:
   - component: {fileID: 7303299407044056684}
   - component: {fileID: 3907231271372111177}
   - component: {fileID: 6937193901167061643}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: playerRagdoll_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -411,7 +411,7 @@ GameObject:
   - component: {fileID: 1392317451956233793}
   - component: {fileID: 2155999008865894007}
   - component: {fileID: 8418557146716984938}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: playerRagdoll_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -613,7 +613,7 @@ GameObject:
   - component: {fileID: 3645587600767755464}
   - component: {fileID: 5169070103313680156}
   - component: {fileID: 3519177208135688496}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: playerRagdoll_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -812,7 +812,7 @@ GameObject:
   - component: {fileID: 8063152518709567126}
   - component: {fileID: 7283338102116679709}
   - component: {fileID: 2022432851328691340}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: playerRagdoll_1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1008,7 +1008,8 @@ GameObject:
   m_Component:
   - component: {fileID: 9171834872824414500}
   - component: {fileID: 7013296664110209501}
-  m_Layer: 0
+  - component: {fileID: 3869803594603496465}
+  m_Layer: 8
   m_Name: Ragdoll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1055,6 +1056,19 @@ MonoBehaviour:
   - {fileID: 7303299407044056684}
   - {fileID: 3645587600767755464}
   - {fileID: 1452414053948055540}
+--- !u!114 &3869803594603496465
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7731824241856285835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f93784d89859c274ca4fb246ee51cfca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  impactFX: {fileID: 2304776240618036861, guid: e7a6cd942e919644c8888605354ab1c7, type: 3}
 --- !u!1 &8973362453935232382
 GameObject:
   m_ObjectHideFlags: 0
@@ -1067,7 +1081,7 @@ GameObject:
   - component: {fileID: 540689876600948728}
   - component: {fileID: 4707902038155329439}
   - component: {fileID: 5566801862166434395}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: playerRagdoll_2
   m_TagString: Untagged
   m_Icon: {fileID: 0}

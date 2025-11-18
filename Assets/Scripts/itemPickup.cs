@@ -16,7 +16,7 @@ public class itemPickup : MonoBehaviour
         healthController health = collision.GetComponentInParent<healthController>();
         if (health != null)
         {
-            if (health.health < health.startHealth)
+            if (health.health != health.startHealth)
             {
                 if (effect != null){Instantiate(effect,transform.position,transform.rotation);}
                 health.health += healing;

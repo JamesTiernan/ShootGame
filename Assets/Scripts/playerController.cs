@@ -31,7 +31,7 @@ public class playerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer playerSprite;
-    healthController health;
+    public healthController health;
     private bool headContact;
     private bool feetContact;
     public static bool isGrounded;
@@ -55,9 +55,27 @@ public class playerController : MonoBehaviour
         playerSprite = GetComponent<SpriteRenderer>();
     }
 
+    void CheckStuck()
+    {
+        if (isGrounded){return;}
+        if (Math.Abs(rb.linearVelocityY) < 0.2f && rb.rotation != 0)
+        {
+            rb.rotation = 0;
+            rb.freezeRotation = true;
+            rb.linearVelocityY = 0;
+            isGrounded = true;
+            hitFloor(true);
+        }
+ 
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (Math.Abs(rb.linearVelocityY) < 0.2f && transform.rotation.z != 0)
+        {
+            Invoke("CheckStuck",0.6f);
+        }
         if (health.health < 1)
         {
             arm.transform.localScale = new Vector3(0, 1, 1);
@@ -294,7 +312,7 @@ public class playerController : MonoBehaviour
 
                 checkFloor();
 
-                if (isGrounded)
+                if ((Math.Abs(rb.linearVelocityY) < 0.2f && !isGrounded) || isGrounded)
                 {
                     AnimatorClipInfo[] currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
                     string clipName = currentClipInfo[0].clip.name;
@@ -308,7 +326,7 @@ public class playerController : MonoBehaviour
                     rb.linearVelocityX += horizontalInput * acceleration;
 
 
-                    if (horizontalInput == 0)
+                    if (horizontalInput == 0 && isGrounded)
                     {
                         rb.linearVelocityX *= friction;
                     }
@@ -436,7 +454,7 @@ public class playerController : MonoBehaviour
                         animator.SetTrigger("roll");
                         animator.ResetTrigger("land");
                     }
-                    if (Math.Abs(rb.rotation) > 45)
+                    if (Math.Abs(rb.linearVelocityX) > 12 || Math.Abs(rb.rotation) > 45)
                     {
                         animator.SetTrigger("roll");
                         animator.ResetTrigger("land");

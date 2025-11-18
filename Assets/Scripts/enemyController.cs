@@ -1,4 +1,5 @@
 using Unity.Hierarchy;
+using UnityEditor.IMGUI.Controls;
 using UnityEngine;
 using UnityEngine.U2D.IK;
 
@@ -8,23 +9,29 @@ public class enemyController : MonoBehaviour
     [SerializeField] float range = 4;
     [SerializeField] GameObject weapon;
     [SerializeField] float shootSpeed = 0.5f;
+    [SerializeField] float moveSpeed = 5;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform firePoint;
+    Rigidbody2D rb;
     Animator animator;
     float shootTimer;
-    bool flip;
+    bool facingRight;
+    bool angry = false;
+    bool attack = false;
+    bool chase = false;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (transform.localScale.x < 0)
         {
-            flip = true;
+            facingRight = true;
         }
         else
         {
-            flip = false;
+            facingRight = false;
         }
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody2D>();
         //oldTargetL = armL.target;
         //oldTargetR = armR.target;
     }
@@ -34,50 +41,108 @@ public class enemyController : MonoBehaviour
     {
         if (player != null)
         {
-            if (player.transform.position.x < transform.position.x)
+            if (player.transform.position.x > transform.position.x)
             {
-                flip = true;
+                facingRight = true;
             }
             else
             {
-                flip = false;
+                facingRight = false;
             }
         }
 
+        // If player in range enemy is angry.
         if (Vector2.Distance(transform.position, player.position) < range)
         {
-            shootTimer -= Time.deltaTime;
-            if (shootTimer <= 0)
-            {
-                shootTimer = shootSpeed;
-                if (flip)
-                {
-                    Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * Quaternion.Euler(new Vector3(0, 180, 0)));
-                }
-                else
-                {
-                    Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-                }
-            }
-
-            animator.SetBool("Aiming",true);
-            weapon.transform.position = transform.position + (player.transform.position + Vector3.up * 0.5f- transform.position).normalized * 2;
+            if (!angry){angry = true;}
+            attack = true;
         }
         else
         {
-            shootTimer = shootSpeed / 2;
-            animator.SetBool("Aiming",false);
-            weapon.transform.position = transform.position + new Vector3(0.1f,-0.1f,0f);
+            // when out of a slightly larger range enemy does not attack and stops being angry
+            attack = false;
+            if (Vector2.Distance(transform.position, player.position) > range * 1.8f)
+            {
+                animator.SetBool("Chase",false);
+                angry = false;
+            }
         }
+        if (angry)
+        {
+            // if player is at medium range the enemy will stop attacking and will try to chase playe
+            if (Vector2.Distance(transform.position, player.position) > range)
+            {
+                animator.SetBool("Chase",true);
+                attack = false;
+                chase = true;
+            }
+            if (chase)
+            {
+                animator.SetBool("Chase",true);
+                // While chasing, if enemy gets close enough they will stop chasing
+                if (Vector2.Distance(transform.position, player.position) < range * 0.6f)
+                {
+                    chase = false;
+                    animator.SetBool("Chase",false);
+                }
+            }
+            // If enemy is attacking and not chasing they will shoot at player
+            if (attack && !chase)
+            {
+                shootTimer -= Time.deltaTime;
+                if (shootTimer <= 0)
+                {
+                    shootTimer = shootSpeed;
+                    if (!facingRight)
+                    {
+                        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * Quaternion.Euler(new Vector3(0, 180, 0)));
+                    }
+                    else
+                    {
+                        Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
+                    }
+                }
 
-        if (flip)
+                animator.SetBool("Aiming",true);
+                weapon.transform.position = transform.position + (player.transform.position + Vector3.up * 0.5f- transform.position).normalized * 2;
+            }
+            else
+            {
+                shootTimer = shootSpeed / 2;
+                animator.SetBool("Aiming",false);
+                weapon.transform.position = transform.position + new Vector3(0.1f,-0.1f,0f);
+            }
+        }
+        else{chase = false;}
+
+        if (facingRight)
+        {
+            
+            transform.localScale = new Vector3(2f, 2f, 2f);
+        }
+        else
         {
             transform.localScale = new Vector3(-2f, 2f, 2f);
         }
+        
+    }
+
+    void FixedUpdate()
+    {
+        if (chase)
+        {
+            if (facingRight)
+            {
+                rb.linearVelocityX = moveSpeed;
+            }
+            else
+            {
+                rb.linearVelocityX = -moveSpeed;
+            }
+        }
         else
         {
-            transform.localScale = new Vector3(2f, 2f, 2f);
+            rb.linearVelocityX = 0;
         }
-        
     }
 }
