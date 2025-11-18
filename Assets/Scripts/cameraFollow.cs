@@ -6,8 +6,8 @@ using UnityEngine.UIElements;
 
 public class cameraFollow : MonoBehaviour
 {
-    [SerializeField] GameObject target;
-    [SerializeField] Vector2 offset;
+    public GameObject target;
+    public Vector2 offset;
     [SerializeField] float smoothness = 0.01f;
     Vector2 newPos;
     playerController playerScript;
@@ -23,7 +23,7 @@ public class cameraFollow : MonoBehaviour
         if (target != null)
         {
             newPos = target.transform.position;
-            transform.position = Vector3.Lerp(transform.position, new Vector3 (newPos.x + offset.x, newPos.y + offset.y,-10),smoothness);
+            transform.position = Vector3.Lerp(transform.position, new Vector3 (newPos.x + offset.x, newPos.y + offset.y,-10),smoothness * Time.deltaTime);
         }
     }
 }

@@ -25,12 +25,13 @@ public class playerController : MonoBehaviour
     [SerializeField] private Transform armAttachPoint;
     [SerializeField] private GameObject mainCollider;
     [SerializeField] private GameObject slideCollider;
-    
+    [SerializeField] private GameObject mainCam;
     private BoxCollider2D mainColl;
     private BoxCollider2D slideColl;
     private Rigidbody2D rb;
     private Animator animator;
     private SpriteRenderer playerSprite;
+    healthController health;
     private bool headContact;
     private bool feetContact;
     public static bool isGrounded;
@@ -46,6 +47,7 @@ public class playerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        health = GetComponent<healthController>();
         mainColl = mainCollider.GetComponent<BoxCollider2D>();
         slideColl = slideCollider.GetComponent<BoxCollider2D>();
         rb = GetComponent<Rigidbody2D>();
@@ -56,6 +58,16 @@ public class playerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (health.health < 1)
+        {
+            arm.transform.localScale = new Vector3(0, 1, 1);
+            shootArm.transform.localScale = new Vector3(0, 1, 1);
+            rb.bodyType = RigidbodyType2D.Static;
+            mainColl.enabled = false;
+            slideColl.enabled = false;
+            playerSprite.enabled = false;
+            return;
+        }
         checkFloor();
         if (isSliding || isCrouching)
         {
@@ -204,7 +216,14 @@ public class playerController : MonoBehaviour
 
 
             flipSprite();
-            
+            cameraFollow followCam = mainCam.GetComponent<cameraFollow>();
+            followCam.offset.x = horizontalInput * 3f;
+            followCam.offset.y = 2;
+            if (Input.GetMouseButton(1))
+            {
+                Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                followCam.offset += (mousePosition - new Vector2(mainCam.transform.position.x,mainCam.transform.position.y)).normalized * 0.5f;
+            }
             // Jump input
             if (Input.GetButtonDown("Jump") && isGrounded && !Physics2D.OverlapBox(new Vector2(transform.position.x , transform.position.y + 0.4f), new Vector2(0.2f, 1.9f), 0f, groundMask))
             {
@@ -240,6 +259,10 @@ public class playerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (health.health < 1)
+        {
+            return;
+        }
         // Movement code does not run if grabbing ledge.
         if (!isGrabbing)
         {
@@ -331,7 +354,6 @@ public class playerController : MonoBehaviour
     private void aimWeapon()
     {
         Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
         shootArmTarget.transform.position = mousePosition;
     }
     void flipSprite()
@@ -393,6 +415,10 @@ public class playerController : MonoBehaviour
     }
     private void hitFloor(bool foot)
     {
+        if (health.health < 1)
+        {
+            return;
+        }
         if (rb.linearVelocityY <= 0)
         {
             if (!isGrounded)

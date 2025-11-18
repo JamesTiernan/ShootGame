@@ -1,4 +1,5 @@
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class bullet : MonoBehaviour
@@ -29,7 +30,15 @@ public class bullet : MonoBehaviour
         {
             enemy.damage(damage);
         }
-        else if (impactFX != null) { Instantiate(impactFX,transform.position,transform.rotation); }
+        else
+        {
+            healthController player = other.collider.GetComponentInParent<healthController>();
+            if (player != null)
+            {
+                player.damage(damage);
+            }
+            else if (impactFX != null) { Instantiate(impactFX,transform.position,transform.rotation);}
+        }
         Destroy(gameObject);
     }
 }

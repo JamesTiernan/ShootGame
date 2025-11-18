@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class slideAttack : MonoBehaviour
 {
+    [SerializeField] int damage;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,7 +23,7 @@ public class slideAttack : MonoBehaviour
             healthController enemy = collision.GetComponent<healthController>();
             if (enemy != null)
             {
-                enemy.damage(1);
+                enemy.damage(damage);
             }
         }
     }

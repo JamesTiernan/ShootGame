@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class playerLedgeGrab : MonoBehaviour
@@ -56,6 +57,17 @@ public class playerLedgeGrab : MonoBehaviour
         transform.position = newPosition;
         rb.gravityScale = startingGrav;
         playerController.isGrabbing = false;
+
+        // Apply velocity
+        if (playerController.isFacingRight)
+        {
+            rb.linearVelocityX += 13;
+        }
+        else
+        {
+            rb.linearVelocityX += -13;
+        }
+        rb.linearVelocityY = 5;
         animator.SetTrigger("finishGrabLedge");
         animator.ResetTrigger("grabLedge");
     }
