@@ -16,16 +16,13 @@ public class playerController : MonoBehaviour
     [SerializeField] private float jumpTime = 0.4f;
     [SerializeField] private float friction = 0.8f;
     [SerializeField] private float maxMoveSpeed = 8f;
+    [SerializeField] private Vector2 aimDistance;
+    [SerializeField] private Vector2 cameraLookAhead;
     [SerializeField] private LayerMask groundMask;
-    [SerializeField] private GameObject arm;
-    [SerializeField] private GameObject shootArm;
-    [SerializeField] private GameObject shootArmTarget;
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private Transform firePoint;
-    [SerializeField] private Transform armAttachPoint;
     [SerializeField] private GameObject mainCollider;
     [SerializeField] private GameObject slideCollider;
     [SerializeField] private GameObject mainCam;
+    private playerWeapon weapon;
     private BoxCollider2D mainColl;
     private BoxCollider2D slideColl;
     private Rigidbody2D rb;
@@ -34,15 +31,15 @@ public class playerController : MonoBehaviour
     public healthController health;
     private bool headContact;
     private bool feetContact;
-    public static bool isGrounded;
-    public static bool isJumping;
-    public static bool isSliding;
-    public static bool isWallSliding;
-    public static bool isGrabbing;
-    public static bool isCrouching;
+    public bool isGrounded;
+    public bool isJumping;
+    public bool isSliding;
+    public bool isWallSliding;
+    public bool isGrabbing;
+    public bool isCrouching;
     private float jumpTimeCounter;
     private float horizontalInput;
-    public static bool isFacingRight = true;
+    public bool isFacingRight = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -53,6 +50,7 @@ public class playerController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         playerSprite = GetComponent<SpriteRenderer>();
+        weapon = GetComponent<playerWeapon>();
     }
 
     void CheckStuck()
@@ -66,27 +64,31 @@ public class playerController : MonoBehaviour
             isGrounded = true;
             hitFloor(true);
         }
- 
     }
 
     // Update is called once per frame
     void Update()
     {
+        // Fix player if stuck.
         if (Math.Abs(rb.linearVelocityY) < 0.2f && transform.rotation.z != 0)
         {
             Invoke("CheckStuck",0.6f);
         }
+
+        // Disables player if dead.
         if (health.health < 1)
         {
-            arm.transform.localScale = new Vector3(0, 1, 1);
-            shootArm.transform.localScale = new Vector3(0, 1, 1);
             rb.bodyType = RigidbodyType2D.Static;
             mainColl.enabled = false;
             slideColl.enabled = false;
             playerSprite.enabled = false;
             return;
         }
+
+        //Checks for grounded.
         checkFloor();
+
+        // Toggles colliders depending on if sliding/crouching or not.
         if (isSliding || isCrouching)
         {
             mainColl.enabled = false;
@@ -98,43 +100,17 @@ public class playerController : MonoBehaviour
             slideColl.enabled = false;
         } 
        
+       // When ledge animation is finished the players position is updated.
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("playerGrabLedge") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
         {
             GetComponent<playerLedgeGrab>().changePos();
         }
 
-        if (Input.GetMouseButton(1))
-        {
-            shootArm.transform.position = armAttachPoint.transform.position;
-            arm.transform.localScale = new Vector3(0, 1, 1);
-            shootArm.transform.localScale = new Vector3(1, 1, 1);
-
-            aimWeapon();
-
-            if (Input.GetMouseButtonDown(0))
-            {
-                if (!isFacingRight)
-                {
-                    Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * Quaternion.Euler(new Vector3(0, 180, 0)));
-                }
-                else
-                {
-                    Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
-                }
-            }
-        }
-        else
-        {
-            arm.transform.localScale = new Vector3(1, 1, 1);
-            shootArm.transform.localScale = new Vector3(0, 1, 1);
-        }
-
         // Check if grabbing ledge, only run movement code if not grabbing.
         if (isGrabbing)
         {
-            Debug.Log(animator.GetCurrentAnimatorStateInfo(0).normalizedTime);
-            AnimatorClipInfo[] currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
             // Access the current animation clip's name and length
+            AnimatorClipInfo[] currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
             string clipName = currentClipInfo[0].clip.name;
 
             if (clipName != "playerGrabLedge")
@@ -150,6 +126,7 @@ public class playerController : MonoBehaviour
         }
         else
         {
+            // Toggle sliding.
             if (Input.GetKeyDown(KeyCode.LeftShift))
             {
                 if (headContact && isSliding)
@@ -170,15 +147,16 @@ public class playerController : MonoBehaviour
                         rb.freezeRotation = true;
                     }
                 }
-                
             }
 
+            // Player cannot change inputs while sliding
             if (!isSliding)
             {
                 horizontalInput = Input.GetAxisRaw("Horizontal");
             }
             else
             {
+                // If player changes direction while slidng, the slide is cancelled.
                 if (Input.GetAxisRaw("Horizontal") != horizontalInput && Input.GetAxisRaw("Horizontal") != 0)
                 {
                     isSliding = false;
@@ -192,7 +170,10 @@ public class playerController : MonoBehaviour
                     horizontalInput = -1;
                 }
             }
+
             bool checkFront;
+
+            // Checks if there is ground in front of the player.
             if (isSliding || isCrouching)
             {
                 checkFront = Physics2D.OverlapBox(new Vector2(transform.position.x + (0.4f * transform.localScale.x), transform.position.y - 0.2f), new Vector2(0.5f, .5f), 0f, groundMask);
@@ -204,10 +185,13 @@ public class playerController : MonoBehaviour
 
             if (checkFront)
             {
+                // If ground is above player when slide is cancelled, the player crouches.
                 if (headContact)
                 {
                     isCrouching = true;
                 }
+
+                // Cancel sliding when player hits wall.
                 isSliding = false;
 
                 if (isFacingRight && horizontalInput > 0)
@@ -220,6 +204,7 @@ public class playerController : MonoBehaviour
                 }
             }
 
+            // Player can crouch, if there is ground above player cannot stand up.
             if (Input.GetKeyDown(KeyCode.LeftControl) && isGrounded)
             {
                 if (!headContact || !isCrouching)
@@ -229,19 +214,27 @@ public class playerController : MonoBehaviour
                 }
             }
 
+            // Sets the bools in animator.
             animator.SetBool("slide", isSliding);
             animator.SetBool("Crouching", isCrouching);
 
-
+            // Checks if player sprite should be flipped.
             flipSprite();
+
+            // Sets camera position, adds lookahead if player is moving.
             cameraFollow followCam = mainCam.GetComponent<cameraFollow>();
-            followCam.offset.x = horizontalInput * 3f;
-            followCam.offset.y = 2;
+            followCam.offset.x = horizontalInput * cameraLookAhead.x;
+            followCam.offset.y = cameraLookAhead.y;
+
+            // Camera position is relative to mouse position while aiming.
             if (Input.GetMouseButton(1))
             {
                 Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                followCam.offset += (mousePosition - new Vector2(mainCam.transform.position.x,mainCam.transform.position.y)).normalized * 0.5f;
+                Vector2 mouseVector = new Vector2(mousePosition.x - transform.position.x,mousePosition.y - transform.position.y).normalized;
+                followCam.offset.x = mouseVector.x * aimDistance.x;
+                followCam.offset.y = mouseVector.y * aimDistance.y;
             }
+
             // Jump input
             if (Input.GetButtonDown("Jump") && isGrounded && !Physics2D.OverlapBox(new Vector2(transform.position.x , transform.position.y + 0.4f), new Vector2(0.2f, 1.9f), 0f, groundMask))
             {
@@ -256,6 +249,7 @@ public class playerController : MonoBehaviour
                 animator.ResetTrigger("roll");
                 animator.SetBool("isJumping", !isGrounded);
             }
+            // Player continues to jump until button is released.
             if (Input.GetButton("Jump") && isJumping)
             {
                 if (jumpTimeCounter > 0)
@@ -277,10 +271,12 @@ public class playerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Returns if health is below 1
         if (health.health < 1)
         {
             return;
         }
+
         // Movement code does not run if grabbing ledge.
         if (!isGrabbing)
         {
@@ -310,6 +306,7 @@ public class playerController : MonoBehaviour
                 animator.SetFloat("xVelocity", Math.Abs(rb.linearVelocityX));
                 animator.SetFloat("yVelocity", rb.linearVelocityY);
 
+                // Checks for floor.
                 checkFloor();
 
                 if ((Math.Abs(rb.linearVelocityY) < 0.2f && !isGrounded) || isGrounded)
@@ -369,16 +366,14 @@ public class playerController : MonoBehaviour
             }
         }
     }
-    private void aimWeapon()
-    {
-        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        shootArmTarget.transform.position = mousePosition;
-    }
+
+    // Handles player sprite flipping.
     void flipSprite()
     {
+        // If aiming, player sprite faces mouse.
         if (Input.GetMouseButton(1))
         {
-            if ((isFacingRight && shootArmTarget.transform.position.x < transform.position.x || !isFacingRight && shootArmTarget.transform.position.x > transform.position.x) && !isSliding)
+            if ((isFacingRight && weapon.target.transform.position.x < transform.position.x || !isFacingRight && weapon.target.transform.position.x > transform.position.x) && !isSliding)
             {
                 isFacingRight = !isFacingRight;
             }
@@ -396,6 +391,8 @@ public class playerController : MonoBehaviour
             transform.localScale = new Vector3(-2f, 2f, 2f);
         }
     }
+
+    // Checks for ground using overlapcircles.
     private void checkFloor()
     {
         feetContact = Physics2D.OverlapCircle(new Vector2(transform.position.x, transform.position.y - 0.7f), 0.3f, groundMask);
@@ -413,6 +410,8 @@ public class playerController : MonoBehaviour
             isGrounded = false;
         }
     }
+
+    // Debug gizmos
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.green;
@@ -431,6 +430,8 @@ public class playerController : MonoBehaviour
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y + 0.4f, 0f), new Vector3(0.2f, 1.9f, 0f));
     }
+
+    // Plays animations and sets variables depending on player speed and rotation when hitting ground.
     private void hitFloor(bool foot)
     {
         if (health.health < 1)

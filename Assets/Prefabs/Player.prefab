@@ -444,14 +444,15 @@ GameObject:
   m_Component:
   - component: {fileID: 4099889986039397393}
   - component: {fileID: 4583311976721210336}
+  - component: {fileID: 7625251447948507505}
   - component: {fileID: 1068391927559875251}
   - component: {fileID: 6405094218250348994}
   - component: {fileID: 2404266889577185090}
+  - component: {fileID: 6312764472520665410}
   - component: {fileID: 5578661126251162922}
   - component: {fileID: 6034172837677597839}
   - component: {fileID: 2413206281196541227}
   - component: {fileID: 501102854356765641}
-  - component: {fileID: 6312764472520665410}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -499,19 +500,40 @@ MonoBehaviour:
   jumpTime: 0.4
   friction: 0.8
   maxMoveSpeed: 8
+  aimDistance: {x: 0, y: 0}
+  cameraLookAhead: {x: 0, y: 0}
   groundMask:
     serializedVersion: 2
     m_Bits: 8
-  arm: {fileID: 5967010795809769478}
-  shootArm: {fileID: 919384772554017826}
-  shootArmTarget: {fileID: 7828326798820312350}
-  bulletPrefab: {fileID: 1758849435639765454, guid: 1db8670eb2cd7dd4a83f66719dd5bcc4, type: 3}
-  firePoint: {fileID: 364691574599110317}
-  armAttachPoint: {fileID: 5285172398919642283}
   mainCollider: {fileID: 139785141335789649}
   slideCollider: {fileID: 2507479670834384888}
   mainCam: {fileID: 0}
-  rb: {fileID: 0}
+  health: {fileID: 0}
+  isGrounded: 0
+  isJumping: 0
+  isSliding: 0
+  isWallSliding: 0
+  isGrabbing: 0
+  isCrouching: 0
+  isFacingRight: 1
+--- !u!114 &7625251447948507505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2161676234109104358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d57faef7f9330347b58b6bcda7ddeaa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arm: {fileID: 5967010795809769478}
+  weaponArm: {fileID: 919384772554017826}
+  target: {fileID: 7828326798820312350}
+  bulletPrefab: {fileID: 1758849435639765454, guid: 1db8670eb2cd7dd4a83f66719dd5bcc4, type: 3}
+  firePoint: {fileID: 364691574599110317}
+  armAttachPoint: {fileID: 5285172398919642283}
 --- !u!114 &1068391927559875251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -564,6 +586,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particle: {fileID: 2304776240618036861, guid: e7a6cd942e919644c8888605354ab1c7, type: 3}
+--- !u!114 &6312764472520665410
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2161676234109104358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0027efd64aa46f4682c6b909df4885f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sfxList:
+  - {fileID: 8300000, guid: 7eb5b2d89a6288840a674dc5aaf4418d, type: 3}
+  - {fileID: 8300000, guid: a1ddc4e661a9b864f9fd133e1437fb07, type: 3}
+  - {fileID: 8300000, guid: c1537025f5846e44fa51f546bef14513, type: 3}
+  - {fileID: 8300000, guid: a155ee33c05bff746a9fc604a1bf856c, type: 3}
+  - {fileID: 8300000, guid: 8b311ab4fd195e043add91981acf597d, type: 3}
+  - {fileID: 8300000, guid: 11c22a54c70f8c140aaf634bafae559c, type: 3}
+  - {fileID: 8300000, guid: 9fc412d7c16891a42bc89714e3fb4449, type: 3}
+  - {fileID: 8300000, guid: 93bd82c88951a714ba298a65827bbfab, type: 3}
+  - {fileID: 8300000, guid: 762eb7de3394f114bb53c57f3f1e3973, type: 3}
+  audioPlayer: {fileID: 4313286564305879185, guid: 25dea627fb3ae8e41a85a20ee2eedd20, type: 3}
 --- !u!50 &5578661126251162922
 Rigidbody2D:
   serializedVersion: 5
@@ -703,29 +748,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6312764472520665410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2161676234109104358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0027efd64aa46f4682c6b909df4885f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sfxList:
-  - {fileID: 8300000, guid: 7eb5b2d89a6288840a674dc5aaf4418d, type: 3}
-  - {fileID: 8300000, guid: a1ddc4e661a9b864f9fd133e1437fb07, type: 3}
-  - {fileID: 8300000, guid: c1537025f5846e44fa51f546bef14513, type: 3}
-  - {fileID: 8300000, guid: a155ee33c05bff746a9fc604a1bf856c, type: 3}
-  - {fileID: 8300000, guid: 8b311ab4fd195e043add91981acf597d, type: 3}
-  - {fileID: 8300000, guid: 11c22a54c70f8c140aaf634bafae559c, type: 3}
-  - {fileID: 8300000, guid: 9fc412d7c16891a42bc89714e3fb4449, type: 3}
-  - {fileID: 8300000, guid: 93bd82c88951a714ba298a65827bbfab, type: 3}
-  - {fileID: 8300000, guid: 762eb7de3394f114bb53c57f3f1e3973, type: 3}
-  audioPlayer: {fileID: 4313286564305879185, guid: 25dea627fb3ae8e41a85a20ee2eedd20, type: 3}
 --- !u!1 &2224709567963540976
 GameObject:
   m_ObjectHideFlags: 0
