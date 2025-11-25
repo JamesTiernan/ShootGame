@@ -33,7 +33,14 @@ public class healthController : MonoBehaviour
         {
             if (deathEffect != null)
             {
-                Instantiate(deathEffect,transform.position,transform.rotation);
+                GameObject spawn = Instantiate(deathEffect,transform.position,transform.rotation);
+                Rigidbody2D[] childrb = spawn.GetComponentsInChildren<Rigidbody2D>();
+                foreach (Rigidbody2D c in childrb)
+                {
+                    c.linearVelocityX = gameObject.GetComponent<Rigidbody2D>().linearVelocityX;
+                    c.linearVelocityY = gameObject.GetComponent<Rigidbody2D>().linearVelocityY;
+                }
+                
             }
             if (destroyOnDeath){Destroy(gameObject);}
         }

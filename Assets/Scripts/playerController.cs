@@ -26,9 +26,10 @@ public class playerController : MonoBehaviour
     private BoxCollider2D mainColl;
     private BoxCollider2D slideColl;
     private Rigidbody2D rb;
-    private Animator animator;
+    public Animator animator;
     private SpriteRenderer playerSprite;
     public healthController health;
+    private playerKick kickAttack;
     private bool headContact;
     private bool feetContact;
     public bool isGrounded;
@@ -37,13 +38,15 @@ public class playerController : MonoBehaviour
     public bool isWallSliding;
     public bool isGrabbing;
     public bool isCrouching;
+    public bool isKicking;
     private float jumpTimeCounter;
     private float horizontalInput;
     public bool isFacingRight = true;
-
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        kickAttack = GetComponent<playerKick>();
         health = GetComponent<healthController>();
         mainColl = mainCollider.GetComponent<BoxCollider2D>();
         slideColl = slideCollider.GetComponent<BoxCollider2D>();
@@ -66,11 +69,11 @@ public class playerController : MonoBehaviour
             hitFloor(true);
         }
     }
-
+    
     // Update is called once per frame
     void Update()
     {
-        // Fix player if stuck.
+        // Fix player if stuck. neeeds to be reworked !!!!
         if (Math.Abs(rb.linearVelocityY) < 0.2f && transform.rotation.z != 0)
         {
             Invoke("CheckStuck",0.6f);
@@ -105,6 +108,14 @@ public class playerController : MonoBehaviour
         if (animator.GetCurrentAnimatorStateInfo(0).IsName("playerGrabLedge") && animator.GetCurrentAnimatorStateInfo(0).normalizedTime >= 1f)
         {
             GetComponent<playerLedgeGrab>().changePos();
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            isSliding = false;
+            isKicking = true;
+            animator.SetBool("isKick",isKicking);
+            animator.Play("playerKick");
         }
 
         // Check if grabbing ledge, only run movement code if not grabbing.
@@ -313,7 +324,10 @@ public class playerController : MonoBehaviour
                 if ((Math.Abs(rb.linearVelocityY) < 0.2f && !isGrounded) || isGrounded)
                 {
                     AnimatorClipInfo[] currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
-                    string clipName = currentClipInfo[0].clip.name;
+                    if (currentClipInfo == null){return;}
+                        
+                    string    clipName = currentClipInfo[0].clip.name;
+                    
 
                     if (clipName == "playerRoll" || clipName == "playerLand")
                     {

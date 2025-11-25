@@ -153,7 +153,7 @@ public class enemyController : MonoBehaviour
         }
         else
         {
-            rb.linearVelocityX = 0;
+            rb.linearVelocityX *= 0.85f;
         }
     }
 }
