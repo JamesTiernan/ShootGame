@@ -55,6 +55,7 @@ public class playerController : MonoBehaviour
 
     void CheckStuck()
     {
+        return;
         if (isGrounded){return;}
         if (Math.Abs(rb.linearVelocityY) < 0.2f && rb.rotation != 0)
         {
@@ -176,11 +177,11 @@ public class playerController : MonoBehaviour
             // Checks if there is ground in front of the player.
             if (isSliding || isCrouching)
             {
-                checkFront = Physics2D.OverlapBox(new Vector2(transform.position.x + (0.4f * transform.localScale.x), transform.position.y - 0.2f), new Vector2(0.5f, .5f), 0f, groundMask);
+                checkFront = Physics2D.OverlapBox(new Vector2(transform.position.x + (0.3f * transform.localScale.x), transform.position.y - 0.2f), new Vector2(0.25f, .5f), 0f, groundMask);
             }
             else
             {
-                checkFront = Physics2D.OverlapBox(new Vector2(transform.position.x + (0.4f * transform.localScale.x), transform.position.y + 0.2f), new Vector2(0.5f, 1f), 0f, groundMask);
+                checkFront = Physics2D.OverlapBox(new Vector2(transform.position.x + (0.3f * transform.localScale.x), transform.position.y + 0.2f), new Vector2(0.25f, 1f), 0f, groundMask);
             }
 
             if (checkFront)
@@ -421,11 +422,11 @@ public class playerController : MonoBehaviour
         Gizmos.color = Color.yellow;
         if (isSliding)
         {
-            Gizmos.DrawWireCube(new Vector3(transform.position.x + (0.4f * transform.localScale.x), transform.position.y - 0.2f, 0f), new Vector3(0.5f, 0.5f, 0f));
+            Gizmos.DrawWireCube(new Vector3(transform.position.x + (0.3f * transform.localScale.x), transform.position.y - 0.2f, 0f), new Vector3(0.25f, 0.5f, 0f));
         }
         else
         {
-            Gizmos.DrawWireCube(new Vector3(transform.position.x + (0.4f * transform.localScale.x), transform.position.y + 0.2f, 0f), new Vector3(0.5f, 1f, 0f));
+            Gizmos.DrawWireCube(new Vector3(transform.position.x + (0.3f *   transform.localScale.x), transform.position.y + 0.2f, 0f), new Vector3(0.25f, 1f, 0f));
         }
         Gizmos.color = Color.blue;
         Gizmos.DrawWireCube(new Vector3(transform.position.x, transform.position.y + 0.4f, 0f), new Vector3(0.2f, 1.9f, 0f));
