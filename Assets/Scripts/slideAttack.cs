@@ -22,6 +22,7 @@ public class slideAttack : MonoBehaviour
         if (player.isSliding)
         {
             healthController enemy = collision.GetComponent<healthController>();
+            Debug.Log(collision);
             if (enemy != null)
             {
                 enemy.damage(damage);

@@ -30,6 +30,7 @@ public class playerLedgeGrab : MonoBehaviour
             if (greenBox && !redBox && !player.isGrabbing && !player.isGrounded)
             {
                 player.isJumping = false;
+                player.isSliding = false;
                 player.isGrabbing = true;
             }
 

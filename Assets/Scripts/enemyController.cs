@@ -73,7 +73,6 @@ public class enemyController : MonoBehaviour
             if (Vector2.Distance(transform.position, player.position) > range)
             {
                 animator.SetBool("Chase",true);
-                attack = false;
                 chase = true;
             }
             if (chase)
@@ -87,12 +86,19 @@ public class enemyController : MonoBehaviour
                 }
             }
             // If enemy is attacking and not chasing they will shoot at player
-            if (attack && !chase)
+            if (attack)
             {
                 shootTimer -= Time.deltaTime;
                 if (shootTimer <= 0)
                 {
-                    shootTimer = shootSpeed;
+                    if (chase)
+                    {
+                        shootTimer = shootSpeed * 1.5f;
+                    }
+                    else
+                    {
+                        shootTimer = shootSpeed;
+                    }
                     if (!facingRight)
                     {
                         Instantiate(bulletPrefab, firePoint.position, firePoint.rotation * Quaternion.Euler(new Vector3(0, 180, 0)));
@@ -127,6 +133,11 @@ public class enemyController : MonoBehaviour
         
     }
 
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(new Vector3(transform.position.x, transform.position.y, 0), range);
+    }
     void FixedUpdate()
     {
         if (chase)
