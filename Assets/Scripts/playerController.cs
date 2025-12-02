@@ -195,6 +195,17 @@ public class playerController : MonoBehaviour
                 checkFront = Physics2D.OverlapBox(new Vector2(transform.position.x + (0.3f * transform.localScale.x), transform.position.y + 0.2f), new Vector2(0.25f, 1f), 0f, groundMask);
             }
 
+
+            // Fix player if stuck laying on ground.
+            if (isGrounded && checkFront && Math.Abs(rb.linearVelocityY) < 2 && rb.angularVelocity != 0 && !isGrabbing)
+            {
+                rb.rotation = 0;
+                rb.freezeRotation = true;
+                rb.linearVelocityY = 0;
+                isGrounded = true;
+                hitFloor(true);
+            }
+
             if (checkFront)
             {
                 // If ground is above player when slide is cancelled, the player crouches.
@@ -288,6 +299,7 @@ public class playerController : MonoBehaviour
         {
             return;
         }
+
 
         // Movement code does not run if grabbing ledge.
         if (!isGrabbing)

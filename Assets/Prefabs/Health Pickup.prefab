@@ -99,6 +99,7 @@ GameObject:
   - component: {fileID: 5069624909167813951}
   - component: {fileID: 3568879525020041641}
   - component: {fileID: 9173900149165321692}
+  - component: {fileID: 2394930580043990823}
   m_Layer: 0
   m_Name: Health Pickup
   m_TagString: Untagged
@@ -205,6 +206,62 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healing: 2
   effect: {fileID: 2304776240618036861, guid: c570014186a06fe4494f64d7bbf7aa68, type: 3}
+--- !u!114 &2394930580043990823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2851627745728971091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ShadowGroup: 0
+  m_Priority: 0
+  m_ComponentVersion: 5
+  m_HasRenderer: 0
+  m_UseRendererSilhouette: 1
+  m_CastsShadows: 1
+  m_SelfShadows: 0
+  m_AlphaCutoff: 0.1
+  m_ApplyToSortingLayers: 00000000
+  m_ShapePath:
+  - {x: -0.30119896, y: -0.15325403, z: 0}
+  - {x: -0.31746507, y: 0.1745646, z: 0}
+  - {x: -0.25496626, y: 0.31506884, z: 0}
+  - {x: 0.24811602, y: 0.32559168, z: 0}
+  - {x: 0.32123315, y: 0.19332254, z: 0}
+  - {x: 0.30428123, y: -0.16095924, z: 0}
+  - {x: 0.2111299, y: -0.18296885, z: 0}
+  - {x: -0.22345853, y: -0.19067454, z: 0}
+  m_ShapePathHash: -321646343
+  m_InstanceId: 0
+  m_ShadowShape2DComponent: {fileID: 0}
+  m_ShadowShape2DProvider:
+    rid: -2
+  m_ShadowCastingSource: 1
+  m_ShadowMesh:
+    m_Mesh: {fileID: 0}
+    m_LocalBounds:
+      m_Center: {x: 0.0018840432, y: 0.06745857, z: 0}
+      m_Extent: {x: 0.3193491, y: 0.2581331, z: 0}
+    m_EdgeProcessing: 1
+    m_TrimEdge: 0
+    m_FlipX: 0
+    m_FlipY: 0
+    m_InitialTrim: 0
+  m_CastingOption: 1
+  m_PreviousTrimEdge: 0
+  m_PreviousEdgeProcessing: 1
+  m_PreviousShadowCastingSource: 1
+  m_PreviousShadowShape2DSource: {fileID: 3568879525020041641}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
 --- !u!1 &3249907912754141056
 GameObject:
   m_ObjectHideFlags: 0

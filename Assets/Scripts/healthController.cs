@@ -37,6 +37,12 @@ public class healthController : MonoBehaviour
                 Rigidbody2D[] childrb = spawn.GetComponentsInChildren<Rigidbody2D>();
                 foreach (Rigidbody2D c in childrb)
                 {
+                    SpriteRenderer spriteskin = spawn.GetComponent<SpriteRenderer>();
+                    Debug.Log(spriteskin);
+                    if (spriteskin != null)
+                    {
+                        spriteskin.sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
+                    }
                     c.linearVelocityX = gameObject.GetComponent<Rigidbody2D>().linearVelocityX;
                     c.linearVelocityY = gameObject.GetComponent<Rigidbody2D>().linearVelocityY;
                 }
