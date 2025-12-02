@@ -323,13 +323,14 @@ public class playerController : MonoBehaviour
 
                 if ((Math.Abs(rb.linearVelocityY) < 0.2f && !isGrounded) || isGrounded)
                 {
+                    /*
                     AnimatorClipInfo[] currentClipInfo = animator.GetCurrentAnimatorClipInfo(0);
                     if (currentClipInfo == null){return;}
                         
-                    string    clipName = currentClipInfo[0].clip.name;
-                    
+                    string clipName = currentClipInfo[0].clip.name;
+                    */
 
-                    if (clipName == "playerRoll" || clipName == "playerLand")
+                    if (animator.GetCurrentAnimatorStateInfo(0).IsName("playerRoll") || animator.GetCurrentAnimatorStateInfo(0).IsName("playerLand"))
                     {
                         rb.rotation = 0;
                         rb.freezeRotation = true;
