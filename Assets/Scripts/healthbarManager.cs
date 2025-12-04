@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class healthbarManager : MonoBehaviour
 {
+    public Vector3 globalEularAngles = Vector3.zero;
     [SerializeField] GameObject bar;
     healthController healthScript;
     float healthBarWidth;
@@ -27,6 +28,12 @@ public class healthbarManager : MonoBehaviour
             transform.localScale = startScale;
             healthBarWidth = healthScript.health / healthScript.startHealth;
             bar.transform.localScale = new Vector3(healthBarWidth,1,1);
+            
         }
     }
+    void LateUpdate()
+    {
+        transform.rotation = Quaternion.Euler(globalEularAngles);
+    }
 }
+
