@@ -2,8 +2,6 @@ using UnityEngine;
 
 public class playerKick : MonoBehaviour
 {   
-    [SerializeField] AudioClip kicksfx;
-    [SerializeField] GameObject sfxplayer;
     [SerializeField] int kickDamage;
     [SerializeField] LayerMask enemyLayer;
     playerController player;
@@ -27,9 +25,6 @@ public class playerKick : MonoBehaviour
 
     public void Kick()
     {
-        GameObject myInstance = GameObject.Instantiate(sfxplayer, transform.position, Quaternion.identity) as GameObject;
-        myInstance.GetComponent<oneShotSFX>().audioPlayer.clip = kicksfx;
-
         // Kick Enemies
         Collider2D kickCheck = Physics2D.OverlapBox(new Vector2(transform.position.x + (0.5f * transform.localScale.x), transform.position.y), new Vector2(1.2f, 1f), 0f,enemyLayer);
         Debug.Log(kickCheck);
