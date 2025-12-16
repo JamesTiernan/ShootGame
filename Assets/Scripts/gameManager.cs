@@ -1,26 +1,34 @@
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class gameManager : MonoBehaviour
 {
-    private static gameManager instance;
-    public static gameManager Instance
-    {
-        get { return instance;  }
-    }
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject canvas;
+    [SerializeField] GameObject retryButton;
 
     // Update is called once per frame
     void Awake()
     {
-        if (instance == null)
+        retryButton.SetActive(false);
+    }
+
+    void Update()
+    {
+        if (retryButton.activeSelf == false)
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            if (player.GetComponent<healthController>().health < 1)
+            {
+                GameOver();
+            }
         }
-        else
-        {
-            Destroy(gameObject);
-        }
+    }
+
+    public void GameOver()
+    {
+        Debug.Log("Game Over");
+        retryButton.SetActive(true);
     }
 }

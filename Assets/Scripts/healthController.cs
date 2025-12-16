@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class healthController : MonoBehaviour
 {
@@ -38,7 +39,6 @@ public class healthController : MonoBehaviour
                 foreach (Rigidbody2D c in childrb)
                 {
                     SpriteRenderer spriteskin = spawn.GetComponent<SpriteRenderer>();
-                    Debug.Log(spriteskin);
                     if (spriteskin != null)
                     {
                         spriteskin.sprite = gameObject.GetComponent<SpriteRenderer>().sprite;
