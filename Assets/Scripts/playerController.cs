@@ -59,6 +59,7 @@ public class playerController : MonoBehaviour
     void CheckStuck()
     {
         return;
+        /*
         if (isGrounded){return;}
         if (Math.Abs(rb.linearVelocityY) < 0.2f && rb.rotation != 0)
         {
@@ -67,7 +68,7 @@ public class playerController : MonoBehaviour
             rb.linearVelocityY = 0;
             isGrounded = true;
             hitFloor(true);
-        }
+        }*/
     }
     
     // Update is called once per frame

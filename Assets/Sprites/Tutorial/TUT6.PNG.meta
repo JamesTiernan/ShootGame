@@ -1,0 +1,923 @@
+fileFormatVersion: 2
+guid: b708d0c82a86232438a47fb3ae7ba3ea
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3556995318536840860
+    second: TUT6_0
+  - first:
+      213: -2469496437822669719
+    second: TUT6_1
+  - first:
+      213: -8230780257231633643
+    second: TUT6_2
+  - first:
+      213: -5253195729157981521
+    second: TUT6_3
+  - first:
+      213: 8748958669175587854
+    second: TUT6_4
+  - first:
+      213: -72075043603009856
+    second: TUT6_5
+  - first:
+      213: -3721749696487378634
+    second: TUT6_6
+  - first:
+      213: -3415382270162439102
+    second: TUT6_7
+  - first:
+      213: 7182134383422252402
+    second: TUT6_8
+  - first:
+      213: -5199727134487571803
+    second: TUT6_9
+  - first:
+      213: -1839621536985193156
+    second: TUT6_10
+  - first:
+      213: -4166268018884130462
+    second: TUT6_11
+  - first:
+      213: 1939916519905615223
+    second: TUT6_12
+  - first:
+      213: -3876588672151766335
+    second: TUT6_13
+  - first:
+      213: -142767531823805714
+    second: TUT6_14
+  - first:
+      213: 590254024729261543
+    second: TUT6_15
+  - first:
+      213: -2543157735127767531
+    second: TUT6_16
+  - first:
+      213: 3112448663516880417
+    second: TUT6_17
+  - first:
+      213: 1414137014461530637
+    second: TUT6_18
+  - first:
+      213: 811901870773617107
+    second: TUT6_19
+  - first:
+      213: -451497708544263490
+    second: TUT6_20
+  - first:
+      213: -8647580904537816568
+    second: TUT6_21
+  - first:
+      213: 6306675151379168217
+    second: TUT6_22
+  - first:
+      213: 6148519908595916374
+    second: TUT6_23
+  - first:
+      213: 6127619996397235872
+    second: TUT6_24
+  - first:
+      213: 4089619451150142319
+    second: TUT6_25
+  - first:
+      213: 3129423083271309416
+    second: TUT6_26
+  - first:
+      213: 6194634920538894143
+    second: TUT6_27
+  - first:
+      213: 494001354434052854
+    second: TUT6_28
+  - first:
+      213: 3418785835322915743
+    second: TUT6_29
+  - first:
+      213: 7086265812678640200
+    second: TUT6_30
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 40
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: TUT6_0
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 85
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c96ad1d756cfc5130800000000000000
+      internalID: 3556995318536840860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_1
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 86
+        width: 7
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96cbc71e2169abdd0800000000000000
+      internalID: -2469496437822669719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_2
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 82
+        width: 16
+        height: 26
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 513096fe6f466cd80800000000000000
+      internalID: -8230780257231633643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_3
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 84
+        width: 25
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: faa70f32156e817b0800000000000000
+      internalID: -5253195729157981521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_4
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 85
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e0409ce3e8b8a6970800000000000000
+      internalID: 8748958669175587854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_5
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 86
+        width: 10
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ce2fd43120fffef0800000000000000
+      internalID: -72075043603009856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_6
+      rect:
+        serializedVersion: 2
+        x: 124
+        y: 86
+        width: 7
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 631b3f5ae50b95cc0800000000000000
+      internalID: -3721749696487378634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_7
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 85
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 244fcc6bbef1a90d0800000000000000
+      internalID: -3415382270162439102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_8
+      rect:
+        serializedVersion: 2
+        x: 146
+        y: 86
+        width: 29
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 275a00d4b211ca360800000000000000
+      internalID: 7182134383422252402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_9
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 84
+        width: 15
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5a298e378bbd6d7b0800000000000000
+      internalID: -5199727134487571803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_10
+      rect:
+        serializedVersion: 2
+        x: 196
+        y: 86
+        width: 7
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c35e6d675f95876e0800000000000000
+      internalID: -1839621536985193156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_11
+      rect:
+        serializedVersion: 2
+        x: 204
+        y: 86
+        width: 19
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 26947578f417e26c0800000000000000
+      internalID: -4166268018884130462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_12
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 57
+        width: 10
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77dd2e6fbc7fbea10800000000000000
+      internalID: 1939916519905615223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_13
+      rect:
+        serializedVersion: 2
+        x: 39
+        y: 55
+        width: 36
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ca37184427933ac0800000000000000
+      internalID: -3876588672151766335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_14
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 56
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eeace2cafa9c40ef0800000000000000
+      internalID: -142767531823805714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_15
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 57
+        width: 10
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7e57b3f78e0013800800000000000000
+      internalID: 590254024729261543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_16
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 57
+        width: 7
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5162ced9383e4bcd0800000000000000
+      internalID: -2543157735127767531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_17
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 56
+        width: 16
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12e109aa193a13b20800000000000000
+      internalID: 3112448663516880417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_18
+      rect:
+        serializedVersion: 2
+        x: 126
+        y: 57
+        width: 29
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0206ba4f1600a310800000000000000
+      internalID: 1414137014461530637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_19
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 56
+        width: 12
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d1cfe72374744b00800000000000000
+      internalID: 811901870773617107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_20
+      rect:
+        serializedVersion: 2
+        x: 173
+        y: 55
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ebaf059e935fbb9f0800000000000000
+      internalID: -451497708544263490
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_21
+      rect:
+        serializedVersion: 2
+        x: 187
+        y: 58
+        width: 17
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8028292fbfe9df780800000000000000
+      internalID: -8647580904537816568
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_22
+      rect:
+        serializedVersion: 2
+        x: 203
+        y: 57
+        width: 24
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9dbfcbfc2afc58750800000000000000
+      internalID: 6306675151379168217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_23
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 23
+        width: 11
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65ed646d74ee35550800000000000000
+      internalID: 6148519908595916374
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_24
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 23
+        width: 25
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ae66d3dbeda90550800000000000000
+      internalID: 6127619996397235872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_25
+      rect:
+        serializedVersion: 2
+        x: 76
+        y: 23
+        width: 32
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6b055c193f31c830800000000000000
+      internalID: 4089619451150142319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_26
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 24
+        width: 14
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8684b4eb6b1fd6b20800000000000000
+      internalID: 3129423083271309416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_27
+      rect:
+        serializedVersion: 2
+        x: 120
+        y: 24
+        width: 10
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3f63ffb3a3c7f550800000000000000
+      internalID: 6194634920538894143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_28
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 25
+        width: 17
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f28a915d9b0bd600800000000000000
+      internalID: 494001354434052854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_29
+      rect:
+        serializedVersion: 2
+        x: 143
+        y: 22
+        width: 15
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f9b3f8d8a97f17f20800000000000000
+      internalID: 3418785835322915743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: TUT6_30
+      rect:
+        serializedVersion: 2
+        x: 158
+        y: 23
+        width: 16
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84284b44639775260800000000000000
+      internalID: 7086265812678640200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      TUT6_0: 3556995318536840860
+      TUT6_1: -2469496437822669719
+      TUT6_10: -1839621536985193156
+      TUT6_11: -4166268018884130462
+      TUT6_12: 1939916519905615223
+      TUT6_13: -3876588672151766335
+      TUT6_14: -142767531823805714
+      TUT6_15: 590254024729261543
+      TUT6_16: -2543157735127767531
+      TUT6_17: 3112448663516880417
+      TUT6_18: 1414137014461530637
+      TUT6_19: 811901870773617107
+      TUT6_2: -8230780257231633643
+      TUT6_20: -451497708544263490
+      TUT6_21: -8647580904537816568
+      TUT6_22: 6306675151379168217
+      TUT6_23: 6148519908595916374
+      TUT6_24: 6127619996397235872
+      TUT6_25: 4089619451150142319
+      TUT6_26: 3129423083271309416
+      TUT6_27: 6194634920538894143
+      TUT6_28: 494001354434052854
+      TUT6_29: 3418785835322915743
+      TUT6_3: -5253195729157981521
+      TUT6_30: 7086265812678640200
+      TUT6_4: 8748958669175587854
+      TUT6_5: -72075043603009856
+      TUT6_6: -3721749696487378634
+      TUT6_7: -3415382270162439102
+      TUT6_8: 7182134383422252402
+      TUT6_9: -5199727134487571803
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

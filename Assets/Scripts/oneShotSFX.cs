@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class oneShotSFX : MonoBehaviour
 {
-    AudioSource audioPlayer;
+    public AudioSource audioPlayer;
     bool playing;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
